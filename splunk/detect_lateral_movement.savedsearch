@@ -1,0 +1,28 @@
+# Detect_Lateral_Movement.savedsearch
+# Title: Detect Lateral Movement — anomalous authentication patterns
+# Description: Basic Splunk query to surface anomalous authentication activity that may indicate lateral movement or compromised accounts.
+# Notes: Tweak index, sourcetype, field names and threshold to match your environment before enabling as an alert.
+
+Search query:
+
+index=security OR index=wineventlog sourcetype=WinEventLog:Security (EventCode=4624 OR EventCode=4688 OR EventCode=4768 OR EventCode=4776)
+| eval Account=coalesce(user, Account_Name, userName, Account)
+| stats dc(host) as distinct_hosts, values(host) as hosts_seen, count by Account
+| where distinct_hosts > 5
+| sort - distinct_hosts
+
+Suggested schedule: every 15 minutes
+Suggested alert action: send email to SOC team and create an incident ticket if distinct_hosts > X for high-value accounts
+
+Tuning guidance:
+- Replace index and sourcetype to match your environment (e.g., index=main or index=security).
+- Adjust the threshold (distinct_hosts > 5) based on normal activity volumes; for service accounts raise the threshold.
+- Consider filtering out known administrative scanning activity and jump servers.
+
+Containment playbook (short):
+1. Triage: confirm hosts in 'hosts_seen' and user context; check for interactive logons and parent process of suspicious processes (EventCode 4688).
+2. Isolate: if host compromise is suspected, isolate affected hosts via EDR or network controls.
+3. Collect: gather memory and disk artifacts from impacted hosts, collect logs and timeline artifacts.
+4. Remediate: reset credentials, apply multifactor for compromised accounts, remove persistence.
+
+Reference: MITRE ATT&CK techniques T1021 (Remote Services), T1078 (Valid Accounts), T1055 (Process Injection)

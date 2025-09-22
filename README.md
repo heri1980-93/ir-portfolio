@@ -1,6 +1,5 @@
 IR Portfolio — DFIR Samples
 
-This repository contains small, shareable artifacts you can publish alongside your resume to demonstrate practical DFIR and SOC skills.
 
 Included
 - yara/my_suspicious_rule.yar — Example YARA rule detecting obfuscated PowerShell and suspicious payload names.
@@ -28,7 +27,7 @@ License
 Public domain sample (use at your own risk)
 
 Publishing to GitHub
-- Create a new repository (e.g., heriberto/ir-portfolio) and push this folder. Include a short `README.md` describing each artifact and link it from your resume.
+- Create a new repository (e.g., heriberto/ir-portfolio) and push this folder. Include a short `README.md` describing each artifact 
 - Add a `samples/` directory with screenshots or minimal sample logs showing the rules/search firing to strengthen credibility.
 - Use GitHub Pages or a short portfolio README to surface key artifacts: YARA rule, Splunk saved search, and a 1-page DFIR write-up.
 

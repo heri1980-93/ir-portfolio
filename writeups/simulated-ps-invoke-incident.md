@@ -1,7 +1,7 @@
 Simulated DFIR Write-up — PowerShell-based Downloader (One-page)
 
 Overview
-A simulated incident where a user account executed a suspicious PowerShell command that fetched and executed a payload. Objective: demonstrate DFIR methodology (detection, collection, analysis, containment, remediation) and produce clear artifacts for a hiring portfolio.
+A simulated incident where a user account executed a suspicious PowerShell command that fetched and executed a payload. Objective: demonstrate DFIR methodology (detection, collection, analysis, containment, remediation).
 
 Scope
 - A single Windows host in a lab environment
